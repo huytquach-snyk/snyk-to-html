@@ -77,7 +77,13 @@ class SnykToHtml {
               ? path.join(__dirname, '../../template/iac/test-report.hbs')
               : template;
           return processIacData(data, template, summary);
-        } else {
+        } else if (
+          //data?.runs ||
+          //data[0]?.runs
+          data.runs[0].tool.driver.name == "SnykCode"
+        ) {
+          return processCodeData(data, template, summary);
+        }else {
           return processData(data, remediation, template, summary);
         }
       });
@@ -224,6 +230,20 @@ async function generateIacTemplate(
   return htmlTemplate(data);
 }
 
+async function generateCodeTemplate(
+  data: any,
+  template: string,
+): Promise<string> {
+  await registerPeerPartial(template, 'inline-css');
+  await registerPeerPartial(template, 'header');
+  await registerPeerPartial(template, 'inline-js');
+  await registerPeerPartial(template, 'vuln-card');
+
+  const htmlTemplate = await compileTemplate(template);
+
+  return htmlTemplate(data);
+}
+
 function mergeData(dataArray: any[]): any {
   const vulnsArrays = dataArray.map(project => project.vulnerabilities || []);
   const aggregateVulnerabilities = [].concat(...vulnsArrays);
@@ -281,6 +301,41 @@ async function processIacData(data: any, template: string, summary: boolean): Pr
   }
 
   return generateIacTemplate(processedData, template);
+}
+
+async function processCodeData(data: any, template: string, summary: boolean): Promise<string> {
+  if (data.error) {
+    return generateCodeTemplate(data, template);
+  }
+
+  let snykLevel;
+  const dataArray = Array.isArray(data)? data : [data];
+  dataArray[0].runs[0].results.forEach(issue => {
+    if (issue.level=='error'){
+      snykLevel = 'high';
+    }
+    else if (issue.level=='warning'){
+      snykLevel = 'medium';
+    }
+    else {snykLevel = 'low';}
+    issue.severityText = snykLevel;
+    issue.severityValue = severityMap[snykLevel];
+  });
+
+  const OrderedIssuesArray = _.orderBy(
+    dataArray[0].runs[0].results,
+    ['severityValue', 'title'],
+    ['desc', 'asc'],
+  )
+  const totalIssues = OrderedIssuesArray.length;
+  
+  const processedData = {
+    projects: OrderedIssuesArray,
+    showSummaryOnly: summary,
+    totalIssues,
+  }
+
+  return generateCodeTemplate(processedData, template);
 }
 
 async function readInputFromStdin(): Promise<string> {
