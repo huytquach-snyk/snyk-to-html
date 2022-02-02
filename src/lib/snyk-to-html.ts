@@ -82,6 +82,10 @@ class SnykToHtml {
           //data[0]?.runs
           data.runs[0].tool.driver.name == "SnykCode"
         ) {
+          template =
+          template === path.join(__dirname, '../../template/test-report.hbs')
+            ? path.join(__dirname, '../../template/code/test-report.hbs')
+            : template;
           return processCodeData(data, template, summary);
         }else {
           return processData(data, remediation, template, summary);
@@ -236,6 +240,8 @@ async function generateCodeTemplate(
 ): Promise<string> {
   await registerPeerPartial(template, 'inline-css');
   await registerPeerPartial(template, 'header');
+  await registerPeerPartial(template, 'metatable-css');
+  await registerPeerPartial(template, 'metatable');
   await registerPeerPartial(template, 'inline-js');
   await registerPeerPartial(template, 'vuln-card');
 

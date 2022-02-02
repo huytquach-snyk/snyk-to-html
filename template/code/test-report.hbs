@@ -18,6 +18,18 @@
 
 <body class="section-projects">
   <main class="layout-stacked">
+    {{> header }}
+    {{#if projects}}
+      {{#each projects}}
+        <div class="layout-container" style="padding-top: 35px;">
+          {{ruleId}}
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="layout-container" style="padding-top: 35px;">
+        {{error}}
+      </div>
+    {{/if}}
   </main><!-- .layout-stacked__content -->
 </body>
 
