@@ -9,6 +9,7 @@ import marked = require('marked');
 import moment = require('moment');
 import path = require('path');
 import { addIssueDataToPatch, getUpgrades, severityMap, IacProjectType } from './vuln';
+import { codeSeverityMap, readCodeSnippet } from './codeutil';
 
 const debug = debugModule('snyk-to-html');
 
@@ -243,7 +244,7 @@ async function generateCodeTemplate(
   await registerPeerPartial(template, 'metatable-css');
   await registerPeerPartial(template, 'metatable');
   await registerPeerPartial(template, 'inline-js');
-  await registerPeerPartial(template, 'vuln-card');
+  await registerPeerPartial(template, 'code-snip');
 
   const htmlTemplate = await compileTemplate(template);
 
@@ -314,24 +315,31 @@ async function processCodeData(data: any, template: string, summary: boolean): P
     return generateCodeTemplate(data, template);
   }
 
-  let snykLevel;
   const dataArray = Array.isArray(data)? data : [data];
   dataArray[0].runs[0].results.forEach(issue => {
-    if (issue.level=='error'){
-      snykLevel = 'high';
-    }
-    else if (issue.level=='warning'){
-      snykLevel = 'medium';
-    }
-    else {snykLevel = 'low';}
-    issue.severityText = snykLevel;
-    issue.severityValue = severityMap[snykLevel];
+    issue.severityText = codeSeverityMap[issue.level];
+
+    //add the code snippet here...
+    issue.locations[0].physicalLocation.codeString = readCodeSnippet(issue.locations[0])
+    //const filePath = './' + issue.locations[0].physicalLocation.artifactLocation.uri;
+    //const codeRegion = issue.locations[0].physicalLocation.region;
+    //const codeString = processLines(filePath, codeRegion);
+    //issue.locations[0].physicalLocation.codeString = codeString;
+
+    //code stack
+    issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
+      codeFlowLocations.location.physicalLocation.codeString = readCodeSnippet(codeFlowLocations.location);
+      //const filePath = './' + codeFlowLocations.location.physicalLocation.artifactLocation.uri;
+      //const codeRegion = codeFlowLocations.location.physicalLocation.region;
+      //const codeString = processLines(filePath, codeRegion);
+      //codeFlowLocations.location.physicalLocation.codeString = codeString;
+    });
   });
 
   const OrderedIssuesArray = _.orderBy(
     dataArray[0].runs[0].results,
-    ['severityValue', 'title'],
-    ['desc', 'asc'],
+    ['properties.priorityScore'],
+    ['desc'],
   )
   const totalIssues = OrderedIssuesArray.length;
   
