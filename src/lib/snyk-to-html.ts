@@ -321,27 +321,24 @@ async function processCodeData(data: any, template: string, summary: boolean): P
 
     //add the code snippet here...
     issue.locations[0].physicalLocation.codeString = readCodeSnippet(issue.locations[0])
-    //const filePath = './' + issue.locations[0].physicalLocation.artifactLocation.uri;
-    //const codeRegion = issue.locations[0].physicalLocation.region;
-    //const codeString = processLines(filePath, codeRegion);
-    //issue.locations[0].physicalLocation.codeString = codeString;
 
     //code stack
     issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
       codeFlowLocations.location.physicalLocation.codeString = readCodeSnippet(codeFlowLocations.location);
-      //const filePath = './' + codeFlowLocations.location.physicalLocation.artifactLocation.uri;
-      //const codeRegion = codeFlowLocations.location.physicalLocation.region;
-      //const codeString = processLines(filePath, codeRegion);
-      //codeFlowLocations.location.physicalLocation.codeString = codeString;
     });
   });
 
-  const OrderedIssuesArray = _.orderBy(
-    dataArray[0].runs[0].results,
-    ['properties.priorityScore'],
-    ['desc'],
-  )
-  const totalIssues = OrderedIssuesArray.length;
+  const OrderedIssuesArray = dataArray.map((project) => {
+    return {
+      details: project.runs[0].properties,
+      vulnerabilities: _.orderBy(
+       project.runs[0].results,
+        ['properties.priorityScore'],
+       ['desc'],
+      ),
+    };
+  });
+  const totalIssues = dataArray[0].runs[0].results.length;
   
   const processedData = {
     projects: OrderedIssuesArray,

@@ -16,15 +16,19 @@
   {{> metatable-css }}
 </head>
 
+{{log this}}
 <body class="section-projects">
   <main class="layout-stacked">
     {{> header }}
+
     {{#if projects}}
-      {{#each projects}}
-        <div class="layout-container" style="padding-top: 35px;">
-          {{ruleId}}
-        </div>
-      {{/each}}
+      {{#if projects.[0].vulnerabilities}}
+        {{#each projects.[0].vulnerabilities}}
+          <div class="layout-container" style="padding-top: 35px;">
+            {{ruleId}}
+          </div>
+        {{/each}}
+      {{/if}}
     {{else}}
       <div class="layout-container" style="padding-top: 35px;">
         {{error}}

@@ -13,25 +13,20 @@
           </a>
           <div class="header-wrap">
             {{#unless showSummaryOnly}}
-              <h1 class="project__header__title">Snyk test report</h1>
+              <h1 class="project__header__title">Snyk Code report</h1>
             {{else}}
-              <h1 class="project__header__title">Snyk test summary</h1>
+              <h1 class="project__header__title">Snyk Code summary</h1>
             {{/unless}}
 
             <p class="timestamp">{{moment d "MMMM Do YYYY, h:mm:ss a"}}</p>
           </div>
           {{#if projects}}
             <div class="source-panel">
-              {{#if projects.[1] }}
-              <span>Scanned the following paths:</span>
-              <ul>
-                {{#each projects}}<li class="paths">{{this.targetFilePath}} ({{this.projectType}})</li>{{/each}}
-              </ul>
-              {{else}}
-              <span>Scanned the following path:</span>
-              <ul>
-                <li class="paths">{{projects.[0].targetFilePath}} ({{projects.[0].projectType}})</li>
-              </ul>
+              {{#if projects.[0].details.coverage}}
+                <span>Scanned the following languages:</span>
+                <ul>
+                  {{#each projects.[0].details.coverage}}<li class="paths">Language: {{this.lang}} Number of files: ({{this.files}})</li>{{/each}}
+                </ul>            
               {{/if}}
             </div>
 
