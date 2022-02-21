@@ -21,12 +21,16 @@
   <main class="layout-stacked">
     {{> header }}
 
+    <div class="layout-container" style="padding-top: 35px;">
     {{#if projects}}
       {{#if projects.[0].vulnerabilities}}
         {{#each projects.[0].vulnerabilities}}
-          <div class="layout-container" style="padding-top: 35px;">
+        <div class="cards--vuln filter--patch filter--ignore">
+          {{> code-snip }}
+          <!--<div class="layout-container" style="padding-top: 35px;">
             {{ruleId}}
-          </div>
+          </div> -->
+        </div><!-- cards -->
         {{/each}}
       {{/if}}
     {{else}}
@@ -34,6 +38,7 @@
         {{error}}
       </div>
     {{/if}}
+    </div>
   </main><!-- .layout-stacked__content -->
 </body>
 

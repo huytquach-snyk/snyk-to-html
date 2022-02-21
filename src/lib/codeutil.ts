@@ -1,6 +1,6 @@
 import { relativeTimeRounding } from "moment";
 
-export const codeSeverityMap = { error: 'high', warning: 'medium', info: 'low'};
+export const codeSeverityMap = { error: 'high', warning: 'medium', info: 'low', note: 'low'};
 const nReadlines = require('n-readlines');
 
 function readCodeLines(filePath, lines){

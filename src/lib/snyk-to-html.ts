@@ -315,9 +315,11 @@ async function processCodeData(data: any, template: string, summary: boolean): P
     return generateCodeTemplate(data, template);
   }
 
+  let test =[];
   const dataArray = Array.isArray(data)? data : [data];
+  const rulesArray = dataArray[0].runs[0].tool.driver.rules;
   dataArray[0].runs[0].results.forEach(issue => {
-    issue.severityText = codeSeverityMap[issue.level];
+    issue.severitytext = codeSeverityMap[issue.level];
 
     //add the code snippet here...
     issue.locations[0].physicalLocation.codeString = readCodeSnippet(issue.locations[0])
@@ -326,6 +328,10 @@ async function processCodeData(data: any, template: string, summary: boolean): P
     issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
       codeFlowLocations.location.physicalLocation.codeString = readCodeSnippet(codeFlowLocations.location);
     });
+
+    //find ruleId -> tool.driver.rules
+    test = rulesArray.find(e => e.id === issue.ruleId);
+    issue.ruleiddesc = test;
   });
 
   const OrderedIssuesArray = dataArray.map((project) => {
