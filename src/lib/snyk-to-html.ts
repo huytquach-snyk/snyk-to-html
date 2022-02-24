@@ -240,10 +240,10 @@ async function generateCodeTemplate(
   template: string,
 ): Promise<string> {
   await registerPeerPartial(template, 'inline-css');
+  await registerPeerPartial(template, 'inline-js');
   await registerPeerPartial(template, 'header');
   await registerPeerPartial(template, 'metatable-css');
   await registerPeerPartial(template, 'metatable');
-  await registerPeerPartial(template, 'inline-js');
   await registerPeerPartial(template, 'code-snip');
 
   const htmlTemplate = await compileTemplate(template);

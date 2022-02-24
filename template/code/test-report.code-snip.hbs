@@ -27,10 +27,10 @@
         {{#unless @root.showSummaryOnly}}
             <h2>Code Snippet</h2>
             <pre><code>
-                {{#each locations.[0].physicalLocation.codeString}}
-                    {{this}}
-                {{/each}}
-            </code></pre>
+{{#each locations.[0].physicalLocation.codeString}}
+{{this}}
+{{/each}}</code></pre>
+
 
             <h2>Message</h2>
             <p>{{message.text}}</p>
@@ -38,7 +38,12 @@
             <h2>Data Flow</h2>
             <ul>
                 {{#each codeFlows.[0].threadFlows.[0].locations}}
-                    <p>File location: {{location.physicalLocation.artifactLocation.uri}}</p>
+                    <div>File location: {{location.physicalLocation.artifactLocation.uri}}</div>
+                    <div>Code:</div>
+                    <pre><code>
+{{#each location.physicalLocation.codeString}}
+{{this}}
+{{/each}}</code></pre>
                 {{/each}}
             </ul>
 
