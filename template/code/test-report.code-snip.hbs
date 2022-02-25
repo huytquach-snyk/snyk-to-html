@@ -28,7 +28,7 @@
             <h2>Code Snippet</h2>
             <pre><code>
 {{#each locations.[0].physicalLocation.codeString}}
-{{this}}
+{{this.codelineno}}{{this.codesource}}
 {{/each}}</code></pre>
 
 
@@ -42,7 +42,7 @@
                     <div>Code:</div>
                     <pre><code>
 {{#each location.physicalLocation.codeString}}
-{{this}}
+{{this.codelineno}}{{this.codesource}}
 {{/each}}</code></pre>
                 {{/each}}
             </ul>
