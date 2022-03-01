@@ -13,11 +13,11 @@
         {{#unless @root.showSummaryOnly}}
 
         <div class="code-snippet">
-            <code>
-            {{#each locations.[0].physicalLocation.codeString}}
-                {{this.codelineno}}{{this.codesource}}
-            {{/each}}
-            </pre>
+<pre>
+{{#each locations.[0].physicalLocation.codeString}}
+{{this.codelineno}}{{this.codesource}}
+{{/each}}
+</pre>
         </div>
 
         <div class="card__summary">{{message.text}}</div>
@@ -27,9 +27,9 @@
                 {{!-- <div>File location: {{location.physicalLocation.artifactLocation.uri}}</div> --}}
                 <div class="data-flow">
                 {{#each codeFlows.[0].threadFlows.[0].locations}}
-                    <pre>{{ location.physicalLocation.codeString.[4]}}</pre>
+                <pre>{{ location.physicalLocation.codeString.[3].codesource}} <span class="marker">highlighted code</span> remaining code </pre>
                 {{/each}}
-                </code>
+                </div>
             </ul>
 
             <hr/>
