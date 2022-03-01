@@ -1,50 +1,35 @@
 <div class="card card--vuln  disclosure--not-new severity--{{severitytext}}" data-snyk-test="{{severitytext}}">
-    <h2 class="card__title">{{title}}</h2>
+    <div class="card__header">
+        <div class="severity-icon severity-icon--{{severitytext}}"></div>
+        <h2 class="card__title">{{ruleiddesc.shortDescription.text}}</h2>
+        <ul class="card__meta">
+            <li class="card__meta__item">SNYK-CODE</li>
+            <li class="card__meta__item">{{ruleiddesc.properties.cwe}}</li>
+            <li class="card__meta__item">Found in: {{locations.[0].physicalLocation.artifactLocation.uri}} (line : {{locations.[0].physicalLocation.region.startLine}})</li>
+        </ul>
+    </div>
     <div class="card__section">
 
-        <div class="label label--{{severitytext}}">
-            <span class="label__text">{{severitytext}} severity</span>
+        {{#unless @root.showSummaryOnly}}
+
+        <div class="code-snippet">
+            <code>
+            {{#each locations.[0].physicalLocation.codeString}}
+                {{this.codelineno}}{{this.codesource}}
+            {{/each}}
+            </pre>
         </div>
 
-        <hr/>
+        <div class="card__summary">{{message.text}}</div>
 
-        <ul class="card__meta">
-            <li class="card__meta__item">
-                <p>ID: {{ruleiddesc.shortDescription.text}}</p>
-                <!--Rule ID: {{ruleId}}</a> -->
-            </li>
-            <li class="card__meta__item">
-                <p>SNYK-CODE: {{ruleiddesc.properties.cwe}}</p>
-            </li>
-
-            <li class="card__meta__item"><p>Found in:
-                {{locations.[0].physicalLocation.artifactLocation.uri}} (line : {{locations.[0].physicalLocation.region.startLine}})</p>
-            </li>
-        </ul>
-
-        <hr/>
-
-        {{#unless @root.showSummaryOnly}}
-            <h2>Code Snippet</h2>
-            <pre><code>
-{{#each locations.[0].physicalLocation.codeString}}
-{{this}}
-{{/each}}</code></pre>
-
-
-            <h2>Message</h2>
-            <p>{{message.text}}</p>
-
-            <h2>Data Flow</h2>
+        <h3>Data Flow</3>
             <ul>
+                {{!-- <div>File location: {{location.physicalLocation.artifactLocation.uri}}</div> --}}
+                <div class="data-flow">
                 {{#each codeFlows.[0].threadFlows.[0].locations}}
-                    <div>File location: {{location.physicalLocation.artifactLocation.uri}}</div>
-                    <div>Code:</div>
-                    <pre><code>
-{{#each location.physicalLocation.codeString}}
-{{this}}
-{{/each}}</code></pre>
+                    <pre>{{ location.physicalLocation.codeString.[4]}}</pre>
                 {{/each}}
+                </code>
             </ul>
 
             <hr/>
