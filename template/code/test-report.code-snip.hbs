@@ -5,36 +5,44 @@
         <ul class="card__meta">
             <li class="card__meta__item">SNYK-CODE</li>
             <li class="card__meta__item">{{ruleiddesc.properties.cwe}}</li>
-            <li class="card__meta__item">Found in: {{locations.[0].physicalLocation.artifactLocation.uri}} (line : {{locations.[0].physicalLocation.region.startLine}})</li>
+            {{!-- <li class="card__meta__item">Found in: {{locations.[0].physicalLocation.artifactLocation.uri}} (line : {{locations.[0].physicalLocation.region.startLine}})</li> --}}
         </ul>
     </div>
     <div class="card__section">
 
-        {{#unless @root.showSummaryOnly}}
+    {{#unless @root.showSummaryOnly}}
 
         <div class="code-snippet">
-<pre>
-{{#each locations.[0].physicalLocation.codeString}}
-{{this.codelineno}}{{this.codesourcehtml}}
-{{/each}}
-</pre>
+        {{#each locations.[0].physicalLocation.codeString}}
+        {{#if this.codesourcehtml}}
+        {{this.codelineno}}{{{this.codesourcehtml}}}
+        {{else }}
+        {{this.codelineno}}{{this.codesource}}
+        {{/if}}
+        {{/each}}
         </div>
 
-        <div class="card__summary">{{message.text}}</div>
+        <div class="card__summary severity--{{severitytext}}">
+            {{message.text}}
+            <div class="file-location">Found in: {{locations.[0].physicalLocation.artifactLocation.uri}} (line : {{locations.[0].physicalLocation.region.startLine}})</div>    
+        </div>
 
         <h3>Data Flow</3>
-            <ul>
-                {{!-- <div>File location: {{location.physicalLocation.artifactLocation.uri}}</div> --}}
-                <div class="data-flow">
-{{#each codeFlows.[0].threadFlows.[0].locations}}
-<div>start column: {{location.physicalLocation.region.startColumn}} </div><div>end column: {{location.physicalLocation.region.endColumn}}</div>
-<pre>{{ location.physicalLocation.codeString.[4].codesourcehtml}}</pre>
-{{/each}}
-                </div>
-            </ul>
+        <div class="dataflow">
+            {{#each codeFlows.[0].threadFlows.[0].locations}}
+            <div class="dataflow--item">
+                <span class="dataflow--lineno" title="line:column">{{ location.physicalLocation.codeString.[4].codelineno }}:{{location.physicalLocation.region.startColumn}}</span>
+                <div class="dataflow--code">{{{ location.physicalLocation.codeString.[4].codesourcehtml}}}</div>
+                <span class="dataflow--step">{{ @index }}</span>
+            </div>
+            {{/each}}
+        </div>
 
-            <hr/>
-        {{/unless}}
+        <div class="fix-analysis">
+            <h3>Fix Analysis here</h3>
+        </div>
+
+    {{/unless}}
     </div><!-- .card__section -->
 
 </div><!-- .card -->
