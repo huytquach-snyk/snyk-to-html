@@ -15,7 +15,7 @@
         <div class="code-snippet">
 <pre>
 {{#each locations.[0].physicalLocation.codeString}}
-{{this.codelineno}}{{this.codesource}}
+{{this.codelineno}}{{this.codesourcehtml}}
 {{/each}}
 </pre>
         </div>
@@ -26,9 +26,10 @@
             <ul>
                 {{!-- <div>File location: {{location.physicalLocation.artifactLocation.uri}}</div> --}}
                 <div class="data-flow">
-                {{#each codeFlows.[0].threadFlows.[0].locations}}
-                <pre>{{ location.physicalLocation.codeString.[3].codesource}} <span class="marker">highlighted code</span> remaining code </pre>
-                {{/each}}
+{{#each codeFlows.[0].threadFlows.[0].locations}}
+<div>start column: {{location.physicalLocation.region.startColumn}} </div><div>end column: {{location.physicalLocation.region.endColumn}}</div>
+<pre>{{ location.physicalLocation.codeString.[4].codesourcehtml}}</pre>
+{{/each}}
                 </div>
             </ul>
 
