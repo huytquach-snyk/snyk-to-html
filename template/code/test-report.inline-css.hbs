@@ -59,22 +59,19 @@
   }
 
   pre {
-    background-color: rgb(255, 255, 255);
-    font-family: monospace;
-    padding: 0.5em 1em 0.75em;
-    border-radius: 0.25em;
     font-size: 14px;
   }
 
   pre code {
-    padding: 0;
+    padding: 10px;
     font-family: monospace;
-    background-color: rgb(255, 255, 255);
+    background-color: #eee;
+    border:1px solid #d3d3d9;
+    border-radius: 4px;
     color: rgb(0, 0, 0);
     display: block;
-    background: none;
     white-space: pre-wrap;
-    overflow-x: scroll;
+    overflow-x: auto;
     max-width: 100%;
     min-width: 100px;
   }
@@ -276,7 +273,7 @@
 
   .card--vuln .card__meta {
     padding: 0;
-    margin: 0;
+    margin-top: 10px;
     font-size: 1.1em;
   }
 
@@ -311,6 +308,8 @@
 
 
 /* Styles by Andy */
+
+
 .card { padding:0; border-width:4px 1px 1px; border-color:#d3d3d9; border-radius: 4px 4px 0 0 }
 .card.severity--low { border-top-color: #88879E; }
 .card.severity--medium { border-top-color: #D68000; }
@@ -318,15 +317,20 @@
 .card.severity--critical { border-top-color: #AB1A1A; }
 
 .card__header { padding:24px }
+.card__header__main { display:flex; }
 .card__meta { display:flex; align-items:flex-start; margin:0; list-style:none; }
 .card__meta__item { display:inline-block; padding-right:8px; border-right:1px solid #eee; margin-right: 8px; font-size:12px; color:#727184 }
 .card__meta__item:last-child { border:none; }
 .card .card__title { display:inline-block; padding-left: 8px; margin:0; font-size:24px; font-weight:600; vertical-align: top;}
 
+.card-actions { display:flex; padding:2px; border:1px solid #d3d3d9; border-radius:20px; background-color:#fff;  margin-left: auto; }
+.card-action { align-self: center; padding:5px 15px; font-size:14px; cursor: pointer; }
+.card-action:hover { color: #4b45a1; }
+.card-action.is-selected { background-color:#4b45a1; color:#fff; border-radius:20px; }
+
 .card__section {padding:24px; border-top: 1px solid #d3d3d9}
 
-.code-snippet { background-color: transparent; font-family: monospace; display: block;  white-space: pre; margin: 1em 0px;  }
-
+.code-snippet { background-color: transparent; font-family: monospace; white-space: pre; margin: 1em 0px;  }
 
 .card__summary { position: relative; padding: 16px 24px; border: 1px solid #d3d3d9; border-left-width:4px; border-radius:2px; background-color:#fff; color:#393842; word-break: break-word; }
 .card__summary.severity--critical { border-left-color:#AB1A1A ; }
@@ -341,14 +345,20 @@
 .severity-icon.severity-icon--medium { background:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI0Q2ODAwMCIvPgo8cGF0aCBkPSJNOC42MTcxOSA2LjkzNzVIMTEuNTkzOEwxNS45NzY2IDE5LjQ2NDhMMjAuMzU5NCA2LjkzNzVIMjMuMzM1OUwxNy4xNzE5IDI0SDE0Ljc4MTJMOC42MTcxOSA2LjkzNzVaTTcuMDExNzIgNi45Mzc1SDkuOTc2NTZMMTAuNTE1NiAxOS4xNDg0VjI0SDcuMDExNzJWNi45Mzc1Wk0yMS45NzY2IDYuOTM3NUgyNC45NTMxVjI0SDIxLjQzNzVWMTkuMTQ4NEwyMS45NzY2IDYuOTM3NVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=) }
 .severity-icon.severity-icon--low { background:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzg4ODc5RSIvPgo8cGF0aCBkPSJNMjIgMjEuMjU3OFYyNEgxMy40MTAyVjIxLjI1NzhIMjJaTTE0LjU0NjkgNi45Mzc1VjI0SDExLjAzMTJWNi45Mzc1SDE0LjU0NjlaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K) }
 
+.meta-count { border:none; margin:0 15px 0 0; }
+.meta-count .severity-icon { float:left; width:24px; height:24px; margin-right:10px; background-size: 24px 24px; }
+
 .marker { padding:2px 6px; border-radius:4px; background-color: rgba(0,0,0,.1) }
 
 
 .dataflow { margin:12px 0 }
-.dataflow--item { display: flex; padding:4px 8px; border:1px solid transparent; border-width: 1px 0; font-family: monospace; color:#393842; font-size:14px }
+.dataflow--item, .code-source { display: flex; padding:4px 8px; border:1px solid transparent; border-width: 1px 0; font-family: monospace; color:#393842; font-size:14px }
 .dataflow--item:hover { cursor:pointer; border-color: #eee; background-color:#fff; }
 .dataflow--item:hover .marker { background-color: #ffc905; }
-.dataflow--step, .dataflow--lineno { flex:0 0 50px; width: 50px; text-align: right; color:#727184; font-size:12px; }
+.dataflow--step, .dataflow--lineno, .code-lineno { flex:0 0 50px; width: 50px; text-align: right; color:#727184; font-size:12px; }
 .dataflow--lineno { flex:0 0 60px;  padding:0 20px 0 0; text-align: left; }
 .dataflow--code { flex-grow: 1; }
+
+
+.is-hidden { display:none; }
 </style>
