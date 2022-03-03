@@ -7,3 +7,6 @@ npm-debug.log
 /output/
 *.orig
 .eslintcache
+.vscode/launch.json
+test/fixtures/test-code-openrefine.html
+test/fixtures/test-code-openrefine.html
