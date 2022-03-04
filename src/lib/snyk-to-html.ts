@@ -316,6 +316,8 @@ async function processCodeData(data: any, template: string, summary: boolean): P
   }
 
   let test =[];
+  let oldLocation = "";
+  let newLocation = "";
   const dataArray = Array.isArray(data)? data : [data];
   const rulesArray = dataArray[0].runs[0].tool.driver.rules;
   dataArray[0].runs[0].results.forEach(issue => {
@@ -327,6 +329,13 @@ async function processCodeData(data: any, template: string, summary: boolean): P
     //code stack
     issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
       codeFlowLocations.location.physicalLocation.codeString = readCodeSnippet(codeFlowLocations.location);
+      newLocation = codeFlowLocations.location.physicalLocation.artifactLocation.uri;
+      if (newLocation === oldLocation){
+        codeFlowLocations.location.physicalLocation.isshowfilename = false;
+      } else {
+        codeFlowLocations.location.physicalLocation.isshowfilename = true;
+      }
+      oldLocation = newLocation;
     });
 
     //find ruleId -> tool.driver.rules
