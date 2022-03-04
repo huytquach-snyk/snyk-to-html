@@ -319,14 +319,14 @@ async function processCodeData(data: any, template: string, summary: boolean): P
   let oldLocation = "";
   let newLocation = "";
   let findSeverityIndex;
-  let codeSeverityCounter= [
+  const codeSeverityCounter= [
     {severity: "high", counter: 0}, 
     {severity: "medium", counter: 0}, 
     {severity: "low", counter: 0}, 
   ];
-  //= { error: 'high', warning: 'medium', info: 'low', note: 'low'};
   const dataArray = Array.isArray(data)? data : [data];
   const rulesArray = dataArray[0].runs[0].tool.driver.rules;
+
   dataArray[0].runs[0].results.forEach(issue => {
     issue.severitytext = codeSeverityMap[issue.level];
     findSeverityIndex = codeSeverityCounter.findIndex((f => f.severity === issue.severitytext));
