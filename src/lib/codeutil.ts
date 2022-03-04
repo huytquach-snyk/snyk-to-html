@@ -26,7 +26,7 @@ function readCodeLines(filePath, region){
         let lineNumber = 1;
         let parseline = "";
 
-        while (line == readSourceFile.next()) {
+        while (line = readSourceFile.next()) {
 
             if ( lineNumber == startLine ) startRecording = true;
             else if ( lineNumber == endLine ) {
