@@ -51,5 +51,16 @@
     }
   }
 
+  function toggleCardView(event) {
+    var clickedButton = event.target;
+    var parent = clickedButton.parentElement.parentElement.parentElement.parentElement;
+    console.log(parent);
+    if (clickedButton.classList.contains('is-selected')){
+      console.log('Active button'); 
+    } else {
+      console.log('Switching view');
+    }
+  }
+
 
 </script>

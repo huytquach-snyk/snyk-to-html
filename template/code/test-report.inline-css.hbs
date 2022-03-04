@@ -14,7 +14,7 @@
     margin: 0;
     padding: 0;
     background-color: #F5F5F5;
-    font-family: 'Arial', 'Helvetica', Calibri, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
   }
 
   h1,
@@ -83,7 +83,7 @@
   }
 
   a[href^="http://"]:after,
-  a[href^="https://"]:after {
+  a[href^="https://"]:after:not(.brand) {
     background-image: linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20112%20109%22%3E%3Cg%20id%3D%22Page-1%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20id%3D%22link-external%22%3E%3Cg%20id%3D%22arrow%22%3E%3Cpath%20id%3D%22Line%22%20stroke%3D%22%234B45A9%22%20stroke-width%3D%2215%22%20d%3D%22M88.5%2021l-43%2042.5%22%20stroke-linecap%3D%22square%22%2F%3E%3Cpath%20id%3D%22Triangle%22%20fill%3D%22%234B45A9%22%20d%3D%22M111.2%200v50L61%200z%22%2F%3E%3C%2Fg%3E%3Cpath%20id%3D%22square%22%20fill%3D%22%234B45A9%22%20d%3D%22M66%2015H0v94h94V44L79%2059v35H15V30h36z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
     background-size: .75rem;
@@ -100,7 +100,7 @@
   [class*=layout-container] {
     margin: 0 auto;
     max-width: 71.25em;
-    padding: 1.9em 1.3em;
+    padding: 20px;
     position: relative;
   }
   .layout-container--short {
@@ -123,21 +123,15 @@
 
   .paths {
     margin-left: 8px;
+    font-size:14px;
   }
-  .header-wrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 2em;
-  }
+
   .project__header {
     background-color: #4b45a9;
+    background-image: linear-gradient(to right, #7530a6 0%, #461d9f 50%);
     color: #fff;
-    margin-bottom: -1px;
-    padding-top: 1em;
-    padding-bottom: 0.25em;
-    border-bottom: 2px solid #BBB;
-  }
+    padding: 20px;
+    }
 
   .project__header__title {
     overflow-wrap: break-word;
@@ -145,12 +139,6 @@
     word-break: break-all;
     margin-bottom: .1em;
     margin-top: 0;
-  }
-
-  .timestamp {
-    float: right;
-    clear: none;
-    margin-bottom: 0;
   }
 
   .meta-counts {
@@ -161,7 +149,6 @@
     margin: 0 0 1.5em;
     color: #fff;
     clear: both;
-    font-size: 1.1em;
   }
 
   .meta-count {
@@ -179,6 +166,9 @@
     margin-right: 0;
   }
 
+  .timestamp {
+    font-size:14px;
+  }
 /* Card */
 
   .card {
@@ -309,6 +299,10 @@
 
 /* Styles by Andy */
 
+.brand, .brand:link, .brand:visited { display:inline-block; border:none; }
+.brand::after { background:none; }
+
+.report-summary { display:flex; padding:20px 0; justify-content: space-between; }
 
 .card { padding:0; border-width:4px 1px 1px; border-color:#d3d3d9; border-radius: 4px 4px 0 0 }
 .card.severity--low { border-top-color: #88879E; }
@@ -350,7 +344,6 @@
 
 .marker { padding:2px 6px; border-radius:4px; background-color: rgba(0,0,0,.1) }
 
-
 .dataflow { margin:12px 0 }
 .dataflow--item, .code-source { display: flex; padding:4px 8px; border:1px solid transparent; border-width: 1px 0; font-family: monospace; color:#393842; font-size:14px }
 .dataflow--item:hover { cursor:pointer; border-color: #eee; background-color:#fff; }
@@ -359,6 +352,7 @@
 .dataflow--lineno { flex:0 0 60px;  padding:0 20px 0 0; text-align: left; }
 .dataflow--code { flex-grow: 1; }
 
+.dataflow-filename { padding:2px 6px; border:1px solid #eee; border-radius: 4px; margin:20px 0 10px; font-size:13px; color:#393842; background-color: #fff; }
 
 .is-hidden { display:none; }
 </style>
