@@ -29,7 +29,7 @@
         </div>
 
         <div class="collapsible-panel dataflow">
-            <h3>Data Flow</h3>
+            <h2 class="panel-heading"><span class="heading-char">⇢</span> Data Flow</h2>
             {{#each codeFlows.[0].threadFlows.[0].locations}}
             {{#if location.physicalLocation.isshowfilename }}<div class="dataflow-filename"> {{location.physicalLocation.artifactLocation.uri}}</div>{{/if}}
             <div class="dataflow--item">
@@ -40,9 +40,11 @@
             {{/each}}
         </div>
 
-        <div class="collapsible-panel fix-analysis is-hidden">
-            <h3>Fix Analysis here</h3>
+        <div class="collapsible-panel fix-analysis">
+            <h2 class="panel-heading"><span class="heading-char">✓</span> Fix Analysis</h2>
+            <div class="markdown-content">
             {{{markdown ruleiddesc.help.markdown}}}
+            </div>
         </div>
 
     {{/unless}}
