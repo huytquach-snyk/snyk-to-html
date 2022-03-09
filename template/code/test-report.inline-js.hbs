@@ -62,7 +62,6 @@
   function toggleCardView(event) {
     var clickedButton = event.target;
     var card = this.getClosest(clickedButton, '.card');
-    console.log(card);
     if (clickedButton.classList.contains('card-fix')){
       if (clickedButton.classList.contains('is-selected')) 
         return;

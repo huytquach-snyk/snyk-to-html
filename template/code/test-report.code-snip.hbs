@@ -3,9 +3,9 @@
         <div class="card__header__main">
             <div class="severity-icon severity-icon--{{severitytext}}"></div>
             <h2 class="card__title">{{ruleiddesc.shortDescription.text}}</h2>
-            <div class="card-actions">
-                <span class="card-action card-dataflow is-selected" onclick="toggleCardView(event)">Data Flow</span>
-                <span class="card-action card-fix" onclick="toggleCardView(event)">Fix Analysis</span>
+            <div class="card__actions">
+                <span class="card__action card-dataflow is-selected" onclick="toggleCardView(event)">Data Flow</span>
+                <span class="card__action card-fix" onclick="toggleCardView(event)">Fix Analysis</span>
             </div>
         </div>
         <ul class="card__meta">
@@ -32,11 +32,11 @@
             <h2 class="panel-heading"><span class="heading-char">⇣</span> Data Flow</h2>
             {{#each codeFlows.[0].threadFlows.[0].locations}}
             {{#if location.physicalLocation.isshowfilename }}<div class="dataflow-filename"> {{location.physicalLocation.artifactLocation.uri}}</div>{{/if}}
-            <div class="dataflow--item">
-                <span class="dataflow--lineno" title="line:column">{{ location.physicalLocation.codeString.[4].codelineno }}:{{location.physicalLocation.region.startColumn}}</span>
-                <div class="dataflow--code">{{{ location.physicalLocation.codeString.[4].codesourcehtml}}}</div>
-                {{#if @first}}<div>Source</div>{{/if}}{{#if @last}}<div>Sink</div>{{/if}}
-                <span class="dataflow--step">{{ @index }}</span>
+            <div class="dataflow__item">
+                <span class="dataflow__lineno" title="line:column">{{ location.physicalLocation.codeString.[4].codelineno }}:{{location.physicalLocation.region.startColumn}}</span>
+                <div class="dataflow__code">{{{ location.physicalLocation.codeString.[4].codesourcehtml}}}</div>
+                {{#if @first}}<span class="dataflow__badge" title="Data is 'tainted' if it comes from an insecure source such as a file, the network, or the user. This tainted data is passed to a sensitive sink, as described below.">Source</span>{{/if}}{{#if @last}}<span class="dataflow__badge" title="Sinks are the operations that must receive clean data and that you wouldn't want an attacker to be able to manipulate.">Sink</span>{{/if}}
+                <span class="dataflow__step">{{ @index }}</span>
             </div>
             {{/each}}
         </div>
@@ -49,6 +49,5 @@
         </div>
 
     {{/unless}}
-    </div><!-- .card__section -->
-
-</div><!-- .card -->
+    </div>
+</div>

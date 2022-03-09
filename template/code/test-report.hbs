@@ -27,16 +27,11 @@
         {{#each projects.[0].vulnerabilities}}
         <div class="cards--vuln filter--patch filter--ignore">
           {{> code-snip }}
-          <!--<div class="layout-container" style="padding-top: 35px;">
-            {{ruleId}}
-          </div> -->
         </div><!-- cards -->
         {{/each}}
       {{/if}}
     {{else}}
-      <div class="layout-container" style="padding-top: 35px;">
-        {{error}}
-      </div>
+      {{error}}
     {{/if}}
     </div>
   </main><!-- .layout-stacked__content -->
