@@ -35,6 +35,7 @@
             <div class="dataflow--item">
                 <span class="dataflow--lineno" title="line:column">{{ location.physicalLocation.codeString.[4].codelineno }}:{{location.physicalLocation.region.startColumn}}</span>
                 <div class="dataflow--code">{{{ location.physicalLocation.codeString.[4].codesourcehtml}}}</div>
+                {{#if @first}}<div>Source</div>{{/if}}{{#if @last}}<div>Sink</div>{{/if}}
                 <span class="dataflow--step">{{ @index }}</span>
             </div>
             {{/each}}
