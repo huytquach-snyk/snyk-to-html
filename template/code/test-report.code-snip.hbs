@@ -1,5 +1,5 @@
 <div class="card card--vuln  disclosure--not-new severity--{{severitytext}}" data-snyk-test="{{severitytext}}">
-    <div class="card__header">
+    <header class="card__header">
         <div class="card__header__main">
             <div class="severity-icon severity-icon--{{severitytext}}"></div>
             <h2 class="card__title">{{ruleiddesc.shortDescription.text}}</h2>
@@ -12,26 +12,24 @@
             <li class="card__meta__item">SNYK-CODE</li>
             <li class="card__meta__item">{{ruleiddesc.properties.cwe}}</li>
         </ul>
-    </div>
+    </header>
     <div class="card__section">
-
     {{#unless @root.showSummaryOnly}}
-
-        <div class="code-snippet is-hidden">
+        <div class="card__snippet is-hidden">
         {{#each locations.[0].physicalLocation.codeString}}
-<div><span class="code-lineno">{{~this.codelineno}}</span>{{#if this.codesourcehtml}}<span class="code-source">{{{this.codesourcehtml}}}</span>{{else}}<span class="code-source">{{this.codesource}}</span>{{/if}}</div>
+            <div>
+                <span class="code-lineno">{{~this.codelineno}}</span>{{#if this.codesourcehtml}}<span class="code-source">{{{this.codesourcehtml}}}</span>{{else}}<span class="code-source">{{this.codesource}}</span>{{/if}}
+            </div>
         {{/each}}
         </div>
-
         <div class="card__summary severity--{{severitytext}}">
-            {{message.text}}
+            <p>{{message.text}}</p>
             <div class="file-location">Found in: <strong>{{locations.[0].physicalLocation.artifactLocation.uri}} (line : {{locations.[0].physicalLocation.region.startLine}})</strong></div>    
         </div>
-
-        <div class="collapsible-panel dataflow">
-            <h2 class="panel-heading"><span class="heading-char">⇣</span> Data Flow</h2>
+        <div class="card__panel dataflow">
+            <h2 class="card__panel__heading"><span class="heading-char">⇣</span> Data Flow</h2>
             {{#each codeFlows.[0].threadFlows.[0].locations}}
-            {{#if location.physicalLocation.isshowfilename }}<div class="dataflow-filename"> {{location.physicalLocation.artifactLocation.uri}}</div>{{/if}}
+            {{#if location.physicalLocation.isshowfilename }}<div class="dataflow__filename"> {{location.physicalLocation.artifactLocation.uri}}</div>{{/if}}
             <div class="dataflow__item">
                 <span class="dataflow__lineno" title="line:column">{{ location.physicalLocation.codeString.[4].codelineno }}:{{location.physicalLocation.region.startColumn}}</span>
                 <div class="dataflow__code">{{{ location.physicalLocation.codeString.[4].codesourcehtml}}}</div>
@@ -40,14 +38,10 @@
             </div>
             {{/each}}
         </div>
-
-        <div class="collapsible-panel fix-analysis">
-            <h2 class="panel-heading"><span class="heading-char">✓</span> Fix Analysis</h2>
-            <div class="markdown-content">
-            {{{markdown ruleiddesc.help.markdown}}}
-            </div>
+        <div class="card__panel fix-analysis">
+            <h2 class="card__panel__heading"><span class="heading-char">✓</span> Fix Analysis</h2>
+            <div class="card__panel__markdown">{{{markdown ruleiddesc.help.markdown}}}</div>
         </div>
-
     {{/unless}}
     </div>
 </div>
