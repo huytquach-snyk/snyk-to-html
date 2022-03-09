@@ -79,9 +79,9 @@ class SnykToHtml {
               : template;
           return processIacData(data, template, summary);
         } else if (
-          //data?.runs ||
-          //data[0]?.runs
-          data.runs[0].tool.driver.name == "SnykCode"
+          data?.runs ||
+          data[0]?.runs
+          //data.runs[0].tool.driver.name == "SnykCode"
         ) {
           template =
           template === path.join(__dirname, '../../template/test-report.hbs')
@@ -314,7 +314,6 @@ async function processCodeData(data: any, template: string, summary: boolean): P
   if (data.error) {
     return generateCodeTemplate(data, template);
   }
-
   let test =[];
   let oldLocation = "";
   let newLocation = "";
@@ -326,15 +325,12 @@ async function processCodeData(data: any, template: string, summary: boolean): P
   ];
   const dataArray = Array.isArray(data)? data : [data];
   const rulesArray = dataArray[0].runs[0].tool.driver.rules;
-
   dataArray[0].runs[0].results.forEach(issue => {
     issue.severitytext = codeSeverityMap[issue.level];
     findSeverityIndex = codeSeverityCounter.findIndex((f => f.severity === issue.severitytext));
-    codeSeverityCounter[findSeverityIndex].counter = codeSeverityCounter[findSeverityIndex].counter + 1;
-
+    codeSeverityCounter[findSeverityIndex].counter++;
     //add the code snippet here...
     issue.locations[0].physicalLocation.codeString = readCodeSnippet(issue.locations[0])
-
     //code stack
     issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
       codeFlowLocations.location.physicalLocation.codeString = readCodeSnippet(codeFlowLocations.location);
@@ -346,12 +342,10 @@ async function processCodeData(data: any, template: string, summary: boolean): P
       }
       oldLocation = newLocation;
     });
-
     //find ruleId -> tool.driver.rules
     test = rulesArray.find(e => e.id === issue.ruleId);
     issue.ruleiddesc = test;
   });
-
   const OrderedIssuesArray = dataArray.map((project) => {
     return {
       details: project.runs[0].properties,
@@ -364,13 +358,11 @@ async function processCodeData(data: any, template: string, summary: boolean): P
     };
   });
   const totalIssues = dataArray[0].runs[0].results.length;
-  
   const processedData = {
     projects: OrderedIssuesArray,
     showSummaryOnly: summary,
     totalIssues,
   }
-
   return generateCodeTemplate(processedData, template);
 }
 

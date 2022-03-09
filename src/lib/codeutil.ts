@@ -1,8 +1,7 @@
-import { relativeTimeRounding } from "moment";
+const nReadlines = require('n-readlines');
+const path = require('path');
 
 export const codeSeverityMap = { error: 'high', warning: 'medium', info: 'low', note: 'low'};
-const nReadlines = require('n-readlines');
-
 type codeSource = {
     codelineno: number
     codesource: string
@@ -20,14 +19,11 @@ function readCodeLines(filePath, region){
         const startLine = (region.startLine == endLine) ? endLine-4: region.startLine ;
         const codeString: Array<codeSource> = [];
         const readSourceFile = new nReadlines(filePath);
-        
         let startRecording=false;
         let line;
         let lineNumber = 1;
         let parseline = "";
-
         while (line = readSourceFile.next()) {
-
             if ( lineNumber == startLine ) startRecording = true;
             else if ( lineNumber == endLine ) {
                 parseline = line.toString('ascii');
@@ -38,15 +34,11 @@ function readCodeLines(filePath, region){
                 );
             }
             else if ( lineNumber > endLine ) break;
-            
             if (startRecording){
-                //source.codelineno = lineNumber;
-                //source.codesource = `${line}`;
                 codeString.push({codelineno: lineNumber, codesource: `${line}`, codesourcehtml: parseline});
             }
             lineNumber++;
         }
-
         return codeString;
     } catch (err){
         console.error(err);
@@ -54,9 +46,8 @@ function readCodeLines(filePath, region){
 }
 
 export function readCodeSnippet(codeInfomation){
-
-    const filePath = './' + codeInfomation.physicalLocation.artifactLocation.uri;
+    //const filePath = './' + codeInfomation.physicalLocation.artifactLocation.uri;
+    const mytest = path.resolve(codeInfomation.physicalLocation.artifactLocation.uri);
     const codeRegion = codeInfomation.physicalLocation.region;
-    
-    return  readCodeLines(filePath, codeRegion);
+    return  readCodeLines(mytest, codeRegion);
 }
