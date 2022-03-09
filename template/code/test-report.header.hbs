@@ -38,9 +38,9 @@
             <div class="source-panel">
             {{#if projects}}
               {{#if projects.[0].details.coverage}}
-                <span>Scanned the following languages:</span>
+                <span>Scan Coverage:</span>
                 <ul>
-                  {{#each projects.[0].details.coverage}}<li class="paths">{{this.lang}} Number of files: ({{this.files}})</li>{{/each}}
+                  {{#each projects.[0].details.coverage}}<li class="paths">{{this.lang}} files: ({{this.files}})</li>{{/each}}
                 </ul>            
               {{/if}}
             {{/if}}
