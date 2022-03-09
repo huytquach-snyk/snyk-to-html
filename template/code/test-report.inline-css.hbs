@@ -228,27 +228,26 @@
     border-radius: 0 0.25rem 0.25rem 0;
   }
 
-  .card--vuln .card__section {
+  .card__section {
     background-color: #faf9fa
-
   }
 
-  .card--vuln .card__section h2 {
+  .card__section h2 {
     font-size: 22px;
     margin-bottom: 0.5em;
   }
 
-  .card--vuln .card__section p {
-    margin: 0 0 0.5em 0;
+  .card__section p {
+    margin: 0 0 12px 0;
   }
 
-  .card--vuln .card__meta {
+  .card__meta {
     padding: 0;
     margin-top: 10px;
     font-size: 1.1em;
   }
 
-  .card--vuln .card__meta__item {
+  .card__meta__item {
     display: inline-block;
   }
 
@@ -256,12 +255,12 @@
     font-size: 0.9em;
   }
 
-  .card--vuln .card__title {
+  .card__title {
     font-size: 28px;
     margin-top: 0;
   }
 
-  .card--vuln .card__cta p {
+  .card__cta p {
     margin: 0;
     text-align: right;
   }
@@ -334,6 +333,9 @@
 .dataflow__step, .dataflow__lineno, .code-lineno { flex:0 0 50px; width: 50px; text-align: right; color:#727184; font-size:12px; }
 .dataflow__lineno { flex:0 0 60px;  padding:0 20px 0 0; }
 .dataflow__code { flex-grow: 1; }
+.dataflow__code h1, .dataflow__code h2, .dataflow__code h3, .dataflow__code h4, .dataflow__code h5, .dataflow__code h6, .dataflow__code strong, .dataflow__code b, .dataflow__code em, .dataflow__code i, .dataflow__code p  { padding:0; margin:0; font-family: monospace; color:#393842; font-size:14px; font-weight:400; font-style: normal;  } /* overriding html default styling within the code */
+.dataflow__code br { display:none  } /* overriding html default styling within the code */
+.dataflow__code * { display:inline-block; line-height:1; margin:0;  } /* overriding html default styling within the code */
 .dataflow__badge { align-self:center; padding:2px 3px; border:1px solid #d3d3d9; border-radius:2px; background-color:#f4f4f6; font-size:11px; line-height:1; font-family: sans-serif; text-transform: uppercase; color:#646374 } 
 .dataflow__filename { padding:6px 12px; border:1px solid #eee; border-radius: 4px; margin:20px 0 10px; font-size:13px; color:#393842; background-color: #fff; }
 
