@@ -5,13 +5,10 @@ export const codeSeverityMap = { error: 'high', warning: 'medium', info: 'low', 
 type codeSource = {
     codelineno: number
     codesource: string
-    codesourcehtml: string
+    codepremarker: string
+    codemarker: string
+    codepostmarker: string
 };
-
-function stringToHtml(pre: string, highlight: string, post: string){
-    const highlightrule = `${pre}<span class="marker">${highlight}</span>${post}`;
-    return highlightrule;
-}
 
 function readCodeLines(filePath, region){
     try{
@@ -22,32 +19,33 @@ function readCodeLines(filePath, region){
         let startRecording=false;
         let line;
         let lineNumber = 1;
-        let parseline = "";
+        let parseline = ""; 
+        let premarkercode = "";
+        let markercode = "" ;
+        let postmarkercode = "";
         while (line = readSourceFile.next()) {
             if ( lineNumber == startLine ) startRecording = true;
             else if ( lineNumber == endLine ) {
                 parseline = line.toString('ascii');
-                parseline = stringToHtml(
-                    parseline.substring(0, region.startColumn-1),
-                    parseline.substring(region.startColumn-1, region.endColumn),
-                    parseline.substring(region.endColumn, parseline.length)
-                );
+                premarkercode = parseline.substring(0, region.startColumn-1);
+                markercode = parseline.substring(region.startColumn-1, region.endColumn);
+                postmarkercode = parseline.substring(region.endColumn, parseline.length);
             }
             else if ( lineNumber > endLine ) break;
             if (startRecording){
-                codeString.push({codelineno: lineNumber, codesource: `${line}`, codesourcehtml: parseline});
+                codeString.push({codelineno: lineNumber, codesource: `${line}`, codepremarker: premarkercode, codemarker: markercode, codepostmarker: postmarkercode});
             }
             lineNumber++;
         }
         return codeString;
     } catch (err){
-        console.error(err);
+        console.error("Error reading: " + filePath);
+        //console.error(err);
     }
 }
 
 export function readCodeSnippet(codeInfomation){
-    //const filePath = './' + codeInfomation.physicalLocation.artifactLocation.uri;
-    const mytest = path.resolve(codeInfomation.physicalLocation.artifactLocation.uri);
+    const filePath = path.resolve(codeInfomation.physicalLocation.artifactLocation.uri);
     const codeRegion = codeInfomation.physicalLocation.region;
-    return  readCodeLines(mytest, codeRegion);
+    return  readCodeLines(filePath, codeRegion);
 }
