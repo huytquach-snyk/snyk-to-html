@@ -787,11 +787,7 @@ test('Code input - OpenRefine test', (t) => {
         'Unsanitized input from a zip file flows into java.io.FileOutputStream, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to write to arbitrary files.',
         'should contain details of CWE-23',
       );
-      t.contains(
-        cleanedReport,
-        '<div class="dataflow-filename">',
-        'should contain data flow',
-      );
+      t.contains(cleanedReport, 'dataflow', 'should contain data flow');
     },
   );
 });
