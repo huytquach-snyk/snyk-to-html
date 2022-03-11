@@ -49,3 +49,8 @@ export function readCodeSnippet(codeInfomation){
     const codeRegion = codeInfomation.physicalLocation.region;
     return  readCodeLines(filePath, codeRegion);
 }
+
+export function getCurrentDirectory(){
+    //return path.dirname(__dirname);
+    return process.cwd();
+}

@@ -47,7 +47,8 @@
         <div class="source-panel">
         {{#if projects}}
         {{#if projects.[0].details.coverage}}
-          <span class="source-panel__heading">Scan Coverage</span>
+          <span class="source-panel__heading">Scan Path and Coverage</span>
+          <div class="source-panel__filepath">{{projects.[0].sourceFilePath}}</div>
           <ul class="scan-coverage">
             {{#each projects.[0].details.coverage}}<li class="type">{{this.lang}} files: <strong>{{this.files}}</strong></li>{{/each}}
           </ul>            

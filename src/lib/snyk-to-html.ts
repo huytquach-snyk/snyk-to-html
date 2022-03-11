@@ -9,7 +9,7 @@ import marked = require('marked');
 import moment = require('moment');
 import path = require('path');
 import { addIssueDataToPatch, getUpgrades, severityMap, IacProjectType } from './vuln';
-import { codeSeverityMap, readCodeSnippet } from './codeutil';
+import { codeSeverityMap, readCodeSnippet, getCurrentDirectory } from './codeutil';
 
 const debug = debugModule('snyk-to-html');
 
@@ -346,9 +346,11 @@ async function processCodeData(data: any, template: string, summary: boolean): P
     test = rulesArray.find(e => e.id === issue.ruleId);
     issue.ruleiddesc = test;
   });
+  const currentFolderPath = getCurrentDirectory();
   const OrderedIssuesArray = dataArray.map((project) => {
     return {
       details: project.runs[0].properties,
+      sourceFilePath: currentFolderPath, 
       vulnsummarycounter: codeSeverityCounter,
       vulnerabilities: _.orderBy(
        project.runs[0].results,
