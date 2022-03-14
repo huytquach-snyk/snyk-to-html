@@ -771,10 +771,14 @@ test('Code input - OpenRefine test', (t) => {
       const cleanTimestamp = (rep) =>
         rep.replace(regex, '<p class="timestamp">TIMESTAMP</p>');
       const cleanedReport = cleanTimestamp(stdout);
-      t.contains(cleanedReport, '12 issues', 'should contain 12 high severity');
       t.contains(
         cleanedReport,
-        '14 issues',
+        '<strong>12</strong> high issues',
+        'should contain 12 high severity',
+      );
+      t.contains(
+        cleanedReport,
+        '<strong>14</strong> medium issues',
         'should contain 14 medium severity',
       );
       t.contains(
@@ -804,8 +808,16 @@ test('Code input - AltoroJ', (t) => {
       const cleanTimestamp = (rep) =>
         rep.replace(regex, '<p class="timestamp">TIMESTAMP</p>');
       const cleanedReport = cleanTimestamp(stdout);
-      t.contains(cleanedReport, '14 issues', 'should contain 14 high severity');
-      t.contains(cleanedReport, '5 issues', 'should contain 5 medium severity');
+      t.contains(
+        cleanedReport,
+        '<strong>14</strong> high issues',
+        'should contain 14 high severity',
+      );
+      t.contains(
+        cleanedReport,
+        '<strong>5</strong> medium issues',
+        'should contain 5 medium severity',
+      );
       t.contains(
         cleanedReport,
         '<li class="card__meta__item">CWE-79</li>',
