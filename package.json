@@ -20,18 +20,19 @@
     "dist",
     "template"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Snyk Ltd",
+  "license": "Apache-2.0",
   "dependencies": {
     "@snyk/lodash": "^4.17.15-patch",
     "chalk": "^2.4.2",
     "commander": "^4.1.1",
     "debug": "^4.1.1",
     "handlebars": "^4.7.7",
-    "marked": "^2.0.7",
+    "marked": "^4.0.12",
     "moment": "^2.24.0",
     "n-readlines": "^1.0.1",
-    "source-map-support": "^0.5.16"
+    "source-map-support": "^0.5.16",
+    "uglify-js": "^3.15.1"
   },
   "bin": {
     "snyk-to-html": "dist/index.js"
@@ -39,7 +40,6 @@
   "engines": {
     "node": ">=10"
   },
-  "snyk": true,
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/marked": "^0.6.5",
