@@ -33,13 +33,13 @@
           {{#if projects}}
           <div class="meta-counts">
             <div class="meta-count">
-              <span class="severity-icon severity-icon--high"></span> <span>{{projects.[0].vulnsummarycounter.[0].counter}} issues</span>
+              <span class="severity-icon severity-icon--high"></span> <span><strong>{{projects.[0].vulnsummarycounter.[0].counter}}</strong> high issues</span>
             </div>
             <div class="meta-count">
-              <span class="severity-icon severity-icon--medium"></span> <span>{{projects.[0].vulnsummarycounter.[1].counter}} issues</span>
+              <span class="severity-icon severity-icon--medium"></span> <span><strong>{{projects.[0].vulnsummarycounter.[1].counter}}</strong> medium issues</span>
             </div>
             <div class="meta-count">
-              <span class="severity-icon severity-icon--low"></span> <span>{{projects.[0].vulnsummarycounter.[2].counter}} issues</span>
+              <span class="severity-icon severity-icon--low"></span> <span><strong>{{projects.[0].vulnsummarycounter.[2].counter}}</strong> low issues</span>
             </div>
           </div>
           {{/if}}

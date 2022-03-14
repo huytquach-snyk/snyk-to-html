@@ -136,12 +136,14 @@
     word-wrap: break-word;
     word-break: break-all;
     margin-top: 0;
+    margin-bottom: 12px;
   }
 
   .meta-count {
     display: inline-block;
-    margin: 0 12px 12px 0;
+    margin: 0 12px 6px 0;
     padding-right: 12px;
+    font-size:14px;
   }
 
 /* Card */
@@ -268,7 +270,8 @@
 .test-meta .filepath { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .test-meta .timestamp { margin:0 0 6px }
 
-.report-summary { display:flex; justify-content: space-between; margin-bottom: 24px;; }
+.report-summary { display:flex; justify-content: space-between; margin-bottom: 24px; }
+.header-wrap, .source-panel { align-self: center; }
 .severity-icon { display:inline-block; width:32px; height: 32px;  }
 .severity-icon.severity-icon--critical { background:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI0FCMUExQSIvPgo8cGF0aCBkPSJNMTkuNTYyNSAxOC4zMzk4SDIzLjA2NjRDMjIuOTk2MSAxOS40ODgzIDIyLjY3OTcgMjAuNTA3OCAyMi4xMTcyIDIxLjM5ODRDMjEuNTYyNSAyMi4yODkxIDIwLjc4NTIgMjIuOTg0NCAxOS43ODUyIDIzLjQ4NDRDMTguNzkzIDIzLjk4NDQgMTcuNTk3NyAyNC4yMzQ0IDE2LjE5OTIgMjQuMjM0NEMxNS4xMDU1IDI0LjIzNDQgMTQuMTI1IDI0LjA0NjkgMTMuMjU3OCAyMy42NzE5QzEyLjM5MDYgMjMuMjg5MSAxMS42NDg0IDIyLjc0MjIgMTEuMDMxMiAyMi4wMzEyQzEwLjQyMTkgMjEuMzIwMyA5Ljk1NzAzIDIwLjQ2MDkgOS42MzY3MiAxOS40NTMxQzkuMzE2NDEgMTguNDQ1MyA5LjE1NjI1IDE3LjMxNjQgOS4xNTYyNSAxNi4wNjY0VjE0Ljg4MjhDOS4xNTYyNSAxMy42MzI4IDkuMzIwMzEgMTIuNTAzOSA5LjY0ODQ0IDExLjQ5NjFDOS45ODQzOCAxMC40ODA1IDEwLjQ2MDkgOS42MTcxOSAxMS4wNzgxIDguOTA2MjVDMTEuNzAzMSA4LjE5NTMxIDEyLjQ0OTIgNy42NDg0NCAxMy4zMTY0IDcuMjY1NjJDMTQuMTgzNiA2Ljg4MjgxIDE1LjE1MjMgNi42OTE0MSAxNi4yMjI3IDYuNjkxNDFDMTcuNjQ0NSA2LjY5MTQxIDE4Ljg0MzggNi45NDkyMiAxOS44MjAzIDcuNDY0ODRDMjAuODA0NyA3Ljk4MDQ3IDIxLjU2NjQgOC42OTE0MSAyMi4xMDU1IDkuNTk3NjZDMjIuNjUyMyAxMC41MDM5IDIyLjk4MDUgMTEuNTM1MiAyMy4wODk4IDEyLjY5MTRIMTkuNTc0MkMxOS41MzUyIDEyLjAwMzkgMTkuMzk4NCAxMS40MjE5IDE5LjE2NDEgMTAuOTQ1M0MxOC45Mjk3IDEwLjQ2MDkgMTguNTc0MiAxMC4wOTc3IDE4LjA5NzcgOS44NTU0N0MxNy42Mjg5IDkuNjA1NDcgMTcuMDAzOSA5LjQ4MDQ3IDE2LjIyMjcgOS40ODA0N0MxNS42MzY3IDkuNDgwNDcgMTUuMTI1IDkuNTg5ODQgMTQuNjg3NSA5LjgwODU5QzE0LjI1IDEwLjAyNzMgMTMuODgyOCAxMC4zNTk0IDEzLjU4NTkgMTAuODA0N0MxMy4yODkxIDExLjI1IDEzLjA2NjQgMTEuODEyNSAxMi45MTggMTIuNDkyMkMxMi43NzczIDEzLjE2NDEgMTIuNzA3IDEzLjk1MzEgMTIuNzA3IDE0Ljg1OTRWMTYuMDY2NEMxMi43MDcgMTYuOTQ5MiAxMi43NzM0IDE3LjcyNjYgMTIuOTA2MiAxOC4zOTg0QzEzLjAzOTEgMTkuMDYyNSAxMy4yNDIyIDE5LjYyNSAxMy41MTU2IDIwLjA4NTlDMTMuNzk2OSAyMC41MzkxIDE0LjE1NjIgMjAuODgyOCAxNC41OTM4IDIxLjExNzJDMTUuMDM5MSAyMS4zNDM4IDE1LjU3NDIgMjEuNDU3IDE2LjE5OTIgMjEuNDU3QzE2LjkzMzYgMjEuNDU3IDE3LjUzOTEgMjEuMzM5OCAxOC4wMTU2IDIxLjEwNTVDMTguNDkyMiAyMC44NzExIDE4Ljg1NTUgMjAuNTIzNCAxOS4xMDU1IDIwLjA2MjVDMTkuMzYzMyAxOS42MDE2IDE5LjUxNTYgMTkuMDI3MyAxOS41NjI1IDE4LjMzOThaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K) }
 .severity-icon.severity-icon--high { background:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iI0NFNTAxOSIvPgo8cGF0aCBkPSJNMjAuNDI5NyAxMy44ODY3VjE2LjYyODlIMTEuNTIzNFYxMy44ODY3SDIwLjQyOTdaTTEyLjU2NjQgNi45Mzc1VjI0SDkuMDUwNzhWNi45Mzc1SDEyLjU2NjRaTTIyLjkzNzUgNi45Mzc1VjI0SDE5LjQzMzZWNi45Mzc1SDIyLjkzNzVaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K) }
@@ -293,10 +296,11 @@
 
 .card__header { padding:24px }
 .card__header__main { display:flex; }
+.card__header__main .severity-icon { margin-right:12px; }
 .card__meta { display:flex; align-items:flex-start; margin:0; list-style:none; }
 .card__meta__item { display:inline-block; padding-right:8px; border-right:1px solid #eee; margin-right: 8px; font-size:12px; color:#727184 }
 .card__meta__item:last-child { border:none; }
-.card .card__title { display:inline-block; padding-left: 12px; margin:0; font-size:22px; font-weight:600; vertical-align: top;}
+.card .card__title { display:inline-block; margin:0; font-size:22px; font-weight:600; vertical-align: top;}
 
 .card__actions { display:flex; padding:2px; border:1px solid #d3d3d9; border-radius:20px; background-color:#fff;  margin-left: auto; }
 .card__action { align-self: center; padding:5px 15px; font-size:14px; cursor: pointer; transition: all .2s; }
@@ -344,4 +348,13 @@
 .card__panel__markdown table td { background-color:#fff; font-size:14px; line-height: 1.4; }
 
 .is-hidden { display:none; }
+
+@media print { 
+  /* All your print styles go here */
+   .card .fix-analysis { display:block; }
+   .card__section { background-color: none; }
+   .project__header, .card__actions, .severity-icon { display: none; }
+   .marker { border:1px solid #555; margin:-1px 0; background: transparent }
+}
+
 </style>
