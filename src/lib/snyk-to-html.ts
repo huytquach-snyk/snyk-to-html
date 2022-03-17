@@ -331,11 +331,11 @@ async function processCodeData(data: any, template: string, summary: boolean): P
     findSeverityIndex = codeSeverityCounter.findIndex((f => f.severity === issue.severitytext));
     codeSeverityCounter[findSeverityIndex].counter++;
     //add the code snippet here...
-    issue.locations[0].physicalLocation.codeString = readCodeSnippet(issue.locations[0]);
+    issue.locations[0].physicalLocation.codeString = await readCodeSnippet(issue.locations[0]);
     //code stack
     //issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
     for (const codeFlowLocations of issue.codeFlows[0].threadFlows[0].locations){
-      codeFlowLocations.location.physicalLocation.codeString = readCodeSnippet(codeFlowLocations.location);
+      codeFlowLocations.location.physicalLocation.codeString = await readCodeSnippet(codeFlowLocations.location);
       newLocation = codeFlowLocations.location.physicalLocation.artifactLocation.uri;
       if (newLocation === oldLocation){
         codeFlowLocations.location.physicalLocation.isshowfilename = false;
