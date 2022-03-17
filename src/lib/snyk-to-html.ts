@@ -9,7 +9,7 @@ import marked = require('marked');
 import moment = require('moment');
 import path = require('path');
 import { addIssueDataToPatch, getUpgrades, severityMap, IacProjectType } from './vuln';
-import { codeSeverityMap, readCodeSnippet, getCurrentDirectory } from './codeutil';
+import { codeSeverityMap, readCodeSnippet, getCurrentDirectory } from './codeutil-async';
 
 const debug = debugModule('snyk-to-html');
 
@@ -325,14 +325,16 @@ async function processCodeData(data: any, template: string, summary: boolean): P
   ];
   const dataArray = Array.isArray(data)? data : [data];
   const rulesArray = dataArray[0].runs[0].tool.driver.rules;
-  dataArray[0].runs[0].results.forEach(issue => {
+  //dataArray[0].runs[0].results.forEach( issue => {
+  for (const issue of dataArray[0].runs[0].results){
     issue.severitytext = codeSeverityMap[issue.level];
     findSeverityIndex = codeSeverityCounter.findIndex((f => f.severity === issue.severitytext));
     codeSeverityCounter[findSeverityIndex].counter++;
     //add the code snippet here...
-    issue.locations[0].physicalLocation.codeString = readCodeSnippet(issue.locations[0])
+    issue.locations[0].physicalLocation.codeString = readCodeSnippet(issue.locations[0]);
     //code stack
-    issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
+    //issue.codeFlows[0].threadFlows[0].locations.forEach(codeFlowLocations => {
+    for (const codeFlowLocations of issue.codeFlows[0].threadFlows[0].locations){
       codeFlowLocations.location.physicalLocation.codeString = readCodeSnippet(codeFlowLocations.location);
       newLocation = codeFlowLocations.location.physicalLocation.artifactLocation.uri;
       if (newLocation === oldLocation){
@@ -341,11 +343,11 @@ async function processCodeData(data: any, template: string, summary: boolean): P
         codeFlowLocations.location.physicalLocation.isshowfilename = true;
       }
       oldLocation = newLocation;
-    });
+    };
     //find ruleId -> tool.driver.rules
     test = rulesArray.find(e => e.id === issue.ruleId);
     issue.ruleiddesc = test;
-  });
+  };
   const currentFolderPath = getCurrentDirectory();
   const OrderedIssuesArray = dataArray.map((project) => {
     return {

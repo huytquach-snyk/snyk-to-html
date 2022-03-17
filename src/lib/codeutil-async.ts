@@ -13,6 +13,7 @@ export const codeSeverityMap = {
 };
 type codeSource = {
   codelineno: number;
+  block: boolean;
   codesource: string;
   codepremarker: string;
   codemarker: string;
@@ -22,39 +23,56 @@ type codeSource = {
 async function processCodeLine(filePath, region) {
   try {
     const endLine = region.endLine;
-    const startLine =
-      region.startLine == endLine ? endLine - 4 : region.startLine;
+    const startLine = region.startLine;
+    const multiLine =
+      region.startLine == endLine ? false : true;
     const codeString: Array<codeSource> = [];
-    let startRecording = false;
     let lineNumber = 1;
     let parseline = '';
+    let columnEndOfLine;
+    const codeMarker: codeSource = {codelineno:0, block: multiLine, codesource: "", codepremarker:"", codemarker:"", codepostmarker:""};
+    const sourceFs = fs.createReadStream(filePath);
     const rl = readline.createInterface({
-      input: fs.createReadStream(filePath)
+      input: sourceFs
     });
     rl.on('line', (line) => {
-      const codeMarker: codeSource = {codelineno:0, codesource: "", codepremarker:"", codemarker:"", codepostmarker:""};
-      if (lineNumber == startLine) startRecording = true;
-      else if (lineNumber == endLine) {
-        parseline = line.toString('ascii');
+      parseline = line.toString('ascii');
+      if (lineNumber == startLine){
+        if (multiLine) {
+          columnEndOfLine = parseline.length;
+        }
+        else {
+          columnEndOfLine = region.endColumn;
+        }
+        codeMarker.codelineno = lineNumber;
         codeMarker.codepremarker = parseline.substring(0, region.startColumn - 1);
         codeMarker.codemarker = parseline.substring(
           region.startColumn - 1,
-          region.endColumn,
+          columnEndOfLine,
         );
-        codeMarker.codepostmarker = parseline.substring(
+      }
+      if (lineNumber == endLine) {
+        if (multiLine){
+          codeMarker.codemarker = codeMarker.codemarker + "\n" + parseline.substring(
+            0,
+            region.endColumn,
+          );
+        }
+        codeMarker.codepostmarker =  parseline.substring(
           region.endColumn,
           parseline.length,
         );
-      } else if (lineNumber > endLine) rl.close();
-      if (startRecording) {
-        codeMarker.codelineno = lineNumber;
-        codeMarker.codesource = `${line}`;
         codeString.push(codeMarker);
+        rl.close();
+      }
+      if ( lineNumber>startLine && lineNumber < endLine){
+        codeMarker.codemarker = codeMarker.codemarker + "\n" + parseline;
       }
       lineNumber++;
     });
 
     await events.once(rl, 'close');
+    sourceFs.close();
     return codeString;
   } catch (err) {
     console.error(err);
